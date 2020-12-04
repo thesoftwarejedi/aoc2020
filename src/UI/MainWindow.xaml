@@ -10,7 +10,8 @@
         Title="Advent Of Code" Height="600" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="441*" />
+            <ColumnDefinition Width="559*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,13 +23,13 @@
         <Button Command="{Binding RunPartOneCommand}" Content="Run Part One" Grid.Row="0" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" Height="22" Width="100"/>
         <Button Command="{Binding RunPartTwoCommand}" Content="Run Part Two" Grid.Row="0" HorizontalAlignment="Left" Margin="285,10,0,0" VerticalAlignment="Top" Height="22" Width="100"/>
 
-        <TextBox Text="{Binding TestName, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" Grid.Row="0" Width="200" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="390,10,0,0" VerticalContentAlignment="Center" />
-        <Button Command="{Binding CreateTestCommand}" Content="Create Test" Grid.Row="0" HorizontalAlignment="Left" Margin="595,10,0,0" VerticalAlignment="Top" Height="22" Width="100"/>
+        <TextBox Text="{Binding TestName, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" Grid.Row="0" Width="200" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="390,10,0,0" VerticalContentAlignment="Center" Grid.ColumnSpan="2" />
+        <Button Command="{Binding CreateTestCommand}" Content="Create Test" Grid.Row="0" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Height="22" Width="100" Grid.Column="1"/>
 
         <Button Command="{Binding RunAllTestsCommand}" Content="Run All Tests For All Days" Grid.Row="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="22" Width="165"/>
         <Button Command="{Binding RunTodayTestsCommand}" Content="Run All Tests For This Day" Grid.Row="1" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" Height="22" Width="205"/>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
@@ -40,6 +41,6 @@
             <Label Content="Output" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             <local:ScrollingTextBox Text="{Binding OutputText}" Grid.Column="2" IsReadOnly="True" HorizontalAlignment="Stretch" Margin="10,40,10,10" TextWrapping="NoWrap" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas"/>
         </Grid>
-        
+
     </Grid>
 </Window>

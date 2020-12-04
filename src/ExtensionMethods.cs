@@ -901,6 +901,11 @@ namespace AdventOfCode
                 }
             }
         }
+
+        public static string Join<T>(this IEnumerable<T> vals, string separator)
+        {
+            return string.Join(separator, vals.Select(a => a?.ToString()));
+        }
     }
 
     public static class PointExtensions
