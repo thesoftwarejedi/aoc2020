@@ -9,12 +9,31 @@ namespace AdventOfCode.Days
     {
         public override string PartOne(string input)
         {
-            throw new NotImplementedException();
+            var l = input.Split('\n', '\r').ToArray();
+            var groups = l.GetLineGroups(a => a == "").ToArray();
+            var ss = groups.Select(a =>
+            {
+                var asd = a.SelectMany(b => b).ToArray();
+                var qwe = asd.Distinct().ToArray();
+                var c = qwe.Count();
+                return c;
+            });
+            var gg = ss.Sum();
+            return gg.ToString();
         }
 
         public override string PartTwo(string input)
         {
-            throw new NotImplementedException();
+            var l = input.Split('\n', '\r').ToArray();
+            var groups = l.GetLineGroups(a => a == "").ToArray();
+            var ss = groups.Select(a =>
+            {
+                var asd = a.Aggregate((a, b) => new string(a.Intersect(b).ToArray())).Distinct();
+                var c = asd.Count();
+                return c;
+            });
+            var gg = ss.Sum();
+            return gg.ToString();
         }
     }
 }

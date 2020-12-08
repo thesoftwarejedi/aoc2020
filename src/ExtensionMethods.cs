@@ -261,9 +261,29 @@ namespace AdventOfCode
             return new string(source.Reverse().ToArray());
         }
 
-        public static IEnumerable<string> Lines(this string input)
+        public static IEnumerable<string> Lines(this string input, bool removeEmpty = false, bool trimEntries = false)
         {
-            return input.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(new string[] { Environment.NewLine, "\n" }, (removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None) | (trimEntries ? StringSplitOptions.TrimEntries : StringSplitOptions.None));
+        }
+
+        public static IEnumerable<IEnumerable<string>> GetLineGroups(this IEnumerable<string> enumerable, Func<string, bool> splitMatch)
+        {
+            var ee = enumerable.GetEnumerator();
+            var list = new List<string>();
+            while (ee.MoveNext())
+            {
+                if (splitMatch(ee.Current))
+                {
+                    yield return list;
+                    list = new List<string>();
+                }
+                else
+                {
+                    list.Add(ee.Current);
+                }
+            }
+            if (list.Any())
+                yield return list;
         }
 
         public static IEnumerable<string> Words(this string input)
