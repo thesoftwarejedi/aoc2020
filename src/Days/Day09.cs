@@ -9,12 +9,13 @@ namespace AdventOfCode.Days
     {
         public override string PartOne(string input)
         {
-            throw new NotImplementedException();
+            var l = input.Lines();
+            return "todo";
         }
 
         public override string PartTwo(string input)
         {
-            throw new NotImplementedException();
+            return "todo";
         }
     }
 }
