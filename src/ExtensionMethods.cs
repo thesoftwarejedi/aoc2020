@@ -1056,7 +1056,7 @@ namespace AdventOfCode
 
         public static char[,] CreateCharGrid(this string input)
         {
-            var lines = input.Lines().ToList();
+            var lines = input.Lines().Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
             var result = new char[lines[0].Length, lines.Count];
 
             for (var y = 0; y < lines.Count; y++)
@@ -1161,6 +1161,81 @@ namespace AdventOfCode
         public static char[,] Clone(this char[,] grid)
         {
             return grid.Clone(c => c);
+        }
+
+        public static IEnumerable<char> GetNeighborsMatchingInAllDirections(this char[,] map, int x, int y, Func<char, bool> match)
+        {
+            int tx = x;
+            int ty = y;
+            while (++tx <= map.GetUpperBound(0))
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (++tx <= map.GetUpperBound(0) & --ty >= 0)
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (--ty >= 0)
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (--tx >= 0 & --ty >= 0)
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (--tx >= 0)
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (--tx >= 0 & ++ty <= map.GetUpperBound(1))
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (++ty <= map.GetUpperBound(1))
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
+
+            tx = x;
+            ty = y;
+            while (++tx <= map.GetUpperBound(0) & ++ty <= map.GetUpperBound(1))
+                if (match(map[tx, ty]))
+                {
+                    yield return map[tx, ty];
+                    break;
+                }
         }
 
         public static IEnumerable<char> GetNeighbors(this char[,] map, int x, int y, bool includeDiagonals)
