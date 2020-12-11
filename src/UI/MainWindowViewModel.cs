@@ -242,13 +242,19 @@ namespace AdventOfCode
             string result;
             var start = Stopwatch.StartNew();
 
-            if (part == 1)
+            try
             {
-                result = runner.PartOne(input);
-            }
-            else
+                if (part == 1)
+                {
+                    result = runner.PartOne(input);
+                }
+                else
+                {
+                    result = runner.PartTwo(input);
+                }
+            } catch (Exception ex)
             {
-                result = runner.PartTwo(input);
+                result = ex.ToString();
             }
 
             var end = start.ElapsedMilliseconds;
