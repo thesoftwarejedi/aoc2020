@@ -1022,6 +1022,16 @@ namespace AdventOfCode
             return point.Move(direction, 1);
         }
 
+        public static Point RotateAround(this Point point, Point origin, int degrees)
+        {
+            var tx = point.X - origin.X;
+            var ty = point.Y - origin.Y;
+            var rads = degrees * -1 * (Math.PI / 180);
+            var nx = (int)Math.Round(tx * Math.Cos(rads) - ty * Math.Sin(rads));
+            var ny = (int)Math.Round(ty * Math.Cos(rads) + tx * Math.Sin(rads));
+            return new Point(nx + origin.X, ny + origin.Y);
+        }
+
         public static double CalcDistance(this Point p, Point to) => Math.Sqrt(Math.Pow(p.X - to.X, 2) + Math.Pow(p.Y - to.Y, 2));
 
         public static double CalcSlope(this Point p, Point to) => (double)(p.Y - to.Y) / (double)(p.X - to.X);
