@@ -144,7 +144,7 @@ namespace AdventOfCode
 
             LogMessage($"Running Test: {year} Day {day} Part {part}: {testName}...");
 
-            var testTask = new Task<(string result, long elapsed)>(() => RunDay(input, runner, part));
+            var testTask = new Task<(string result, long elapsed, long elapsedTicks)>(() => RunDay(input, runner, part));
             testTask.Start();
 
             // TODO: disable buttons and show spinner
@@ -219,14 +219,17 @@ namespace AdventOfCode
 
             var day = GetDayInstance(SelectedDay);
 
-            var dayTask = new Task<(string result, long elapsed)>(() => RunDay(input, day, part));
+            var dayTask = new Task<(string result, long elapsed, long elapsedTicks)>(() => RunDay(input, day, part));
             dayTask.Start();
 
             // TODO: disable buttons and show spinner
 
             await dayTask;
 
-            LogMessage($"========= DONE (Elapsed: {dayTask.Result.elapsed}ms) =========");
+            if (dayTask.Result.elapsed < 1)
+                LogMessage($"========= DONE (Elapsed: {dayTask.Result.elapsedTicks}t) =========");
+            else
+                LogMessage($"========= DONE (Elapsed: {dayTask.Result.elapsed}ms) =========");
             LogMessage($"ANSWER: {dayTask.Result.result}");
 
             Clipboard.SetText(dayTask.Result.result);
@@ -237,7 +240,7 @@ namespace AdventOfCode
             _lastRunOutput = dayTask.Result.result;
         }
 
-        private (string result, long elapsed) RunDay(string input, BaseDay runner, int part)
+        private (string result, long elapsed, long elapsedTicks) RunDay(string input, BaseDay runner, int part)
         {
             string result;
             var start = Stopwatch.StartNew();
@@ -257,9 +260,9 @@ namespace AdventOfCode
                 result = ex.ToString();
             }
 
-            var end = start.ElapsedMilliseconds;
+            var end = start.ElapsedTicks;
 
-            return (result, end);
+            return (result, start.ElapsedMilliseconds, start.ElapsedTicks);
         }
 
         private string GetInput(DayAttribute day)

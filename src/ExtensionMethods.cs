@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace AdventOfCode
@@ -850,6 +851,24 @@ namespace AdventOfCode
             {
                 list.Add(item);
             }
+        }
+
+        public static BigInteger LeastCommonMultiple(this IEnumerable<BigInteger> numbers)
+        {
+            return numbers.Aggregate(LeastCommonMultiple);
+        }
+
+        public static BigInteger LeastCommonMultiple(BigInteger a, BigInteger b)
+        {
+            var c = a * b;
+            if (c < 0)
+                c *= -1;
+            return c / GreatestCommonDivisor(a, b);
+        }
+
+        public static BigInteger GreatestCommonDivisor(BigInteger a, BigInteger b)
+        {
+            return b == 0 ? a : GreatestCommonDivisor(b, a % b);
         }
 
         public static long LeastCommonMultiple(this IEnumerable<long> numbers)
